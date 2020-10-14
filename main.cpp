@@ -29,7 +29,10 @@ void masukkanPin(string&);
 void mainMenu();
 
 int main(){
-	string pin = "";
+	// Data nasabah ==============================================
+	string pin	= "";												// Variabel sementara
+	string pinT	= "123456";											// PIN untuk akses ATM
+	// ===========================================================
 	
 	// Pengaturan CMD ============================================
 	fontsize(45, 45);												// Ubah ukuran font pada CMD
@@ -65,7 +68,7 @@ void masukkanKartu(){
 	while(ch != 13){
 		ch = _getch();
 	}
-	cout << "\n\n\n\n\n           Kartu berhasil dimasukkan\n";
+	cout << "\n\n\n           Kartu berhasil dimasukkan\n";
 	sleep(3);
 }
 
@@ -76,10 +79,16 @@ void masukkanPin(string &pin){
     cout << "\n\n\n";
 	cout << "\t  Harap Masukkan PIN ATM Anda\n\n";
 	cout << "\t\t    ";
-	ch = _getch();
-	while(ch != 13){
+	while(pin.length() < 6){
+		ch = _getch();
+		if(ch < 48 || ch > 57){
+			continue;
+		}
 		pin.push_back(ch);
 		cout << "*";
+	}
+	ch = _getch();
+	while(ch != 13){
 		ch = _getch();
 	}
 }
