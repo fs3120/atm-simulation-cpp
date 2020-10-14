@@ -19,19 +19,21 @@ using namespace std;
 // Tahun ajaran 2020/2021
 // =======================================================================================
 
-HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
-HWND wh = GetConsoleWindow();
+HANDLE out	= GetStdHandle(STD_OUTPUT_HANDLE);
+HWND wh 	= GetConsoleWindow();
 
 void fontsize(int,int);
 void showHeader();
 void masukkanKartu();
 void masukkanPin(string&);
-void mainMenu();
+void mainMenu(char&);
 
 int main(){
 	// Data nasabah ==============================================
-	string pin	= "";												// Variabel sementara
+	char pilihan;													// Variabel sementara untuk pilihan pada main menu
+	string pin	= "";												// Variabel sementara untuk pin
 	string pinT	= "123456";											// PIN untuk akses ATM
+	int saldo	= 10000000;											// Jumlah saldo
 	// ===========================================================
 	
 	// Pengaturan CMD ============================================
@@ -40,18 +42,44 @@ int main(){
     MoveWindow(wh, 250, 0, 1024, 768, TRUE);						// Set resolusi CMD
     // ===========================================================
 
-    // Main menu =================================================
-    masukkanKartu();
-    masukkanPin(pin);
-}
-
-void fontsize(int a, int b){  
-	PCONSOLE_FONT_INFOEX lpConsoleCurrentFontEx = new CONSOLE_FONT_INFOEX();  
-	lpConsoleCurrentFontEx->cbSize = sizeof(CONSOLE_FONT_INFOEX);  
-	GetCurrentConsoleFontEx(out, 0, lpConsoleCurrentFontEx);  
-	lpConsoleCurrentFontEx->dwFontSize.X = a;  
-	lpConsoleCurrentFontEx->dwFontSize.Y = b;  
-	SetCurrentConsoleFontEx(out, 0, lpConsoleCurrentFontEx);  
+    // Kartu dan PIN =============================================
+    masukkanKartu();												// Tampilan masukkan kartu
+    while(pin != pinT){												// Ketika pin tidak sama dengan pinT
+    	pin = "";													// maka akan terus meampilkan tampilan masukkan pin
+    	masukkanPin(pin);
+    	if(pin != pinT){
+    		std::cout << "\n\n\n\t  Pin yang anda masukkan salah\n";
+    		sleep(4);
+		}else{
+			system("cls");
+			showHeader();
+			std::cout << "\n\n\n\n\n\n\t\t  Harap Tunggu\n";
+    		sleep(3);
+		}
+	}
+    // ===========================================================
+    
+    // Main Menu =================================================
+    mainMenu(pilihan);												// Tampilan main menu sekaligus menetapkan pilihan transaksi
+    switch(pilihan){
+    	case '1':{
+    		
+			break;
+		}
+		case '2':{
+			
+			break;
+		}
+		case '3':{
+			
+			break;
+		}
+		case '0':{
+			
+			break;
+		}
+	}
+    // ===========================================================
 }
 
 void showHeader(){
@@ -68,7 +96,7 @@ void masukkanKartu(){
 	while(ch != 13){
 		ch = _getch();
 	}
-	cout << "\n\n\n           Kartu berhasil dimasukkan\n";
+	cout << "\n\n\n\t   Kartu berhasil dimasukkan\n";
 	sleep(3);
 }
 
@@ -77,25 +105,60 @@ void masukkanPin(string &pin){
 	system("cls");
 	showHeader();
     cout << "\n\n\n";
-	cout << "\t  Harap Masukkan PIN ATM Anda\n\n";
-	cout << "\t\t    ";
-	while(pin.length() < 6){
+	cout << "\t  Harap Masukkan PIN ATM Anda\n";
+	cout << "\t\t   (6 Digit)\n\n\n";
+	cout << "\t\t     ";
+	while(1){
 		ch = _getch();
-		if(ch < 48 || ch > 57){
-			continue;
+		if(ch == 13 && pin.length() == 6){							// Kondisi untuk keluar loop
+			break;													
 		}
-		pin.push_back(ch);
-		cout << "*";
-	}
-	ch = _getch();
-	while(ch != 13){
-		ch = _getch();
+		if(ch == 8 && pin.length() >= 1){							// Fitur menghapus karakter
+			cout << char(8) << " " << char(8);						
+			pin = pin.erase(pin.length()-1);						
+			continue;												
+		}
+		if(ch < 48 || ch > 57 || pin.length() >= 6){				// Fitur supaya hanya angka yang dapat diinput dan 
+			continue;												// ketika sudah 6 karakter tidak bisa input lagi
+		}
+		pin.push_back(ch);											
+		cout << "*";												
 	}
 }
 
-void mainMenu(){
+void mainMenu(char &pilihan){
+	char ch;
 	showHeader();
-	cout << "\n\n\n";
-	cout << "Main Menu:\n";
-	cout << "[1]";
+	cout << "\n\n\n\n";
+	cout << "Pilih transaksi:\n";
+	cout << "[1]Cek Saldo\n"
+		 << "[2]Transfer\n"
+		 << "[3]Pembayaran\n"
+		 << "[0]Cancel\n";
+	cout << "\n\n\n\n\nInput: ";
+	while(1){
+		ch = _getch();
+		if(ch == 13 && pilihan != NULL){							// Kondisi keluar loop
+			break;
+		}
+		if(ch == 8 && pilihan != NULL){								// Fitur untuk menghapus pilihan
+			cout << char(8) << " " << char(8);				
+			pilihan = NULL;
+			continue;					
+		}
+		if(ch < 48 || ch > 51 || pilihan != NULL){					// Fitur supaya input pilihan hanya boleh angka tertentu
+			continue;												// dan maksimalnya hanya 1 karakter
+		}
+		pilihan = ch;
+		cout << ch;
+	}
+}
+
+void fontsize(int a, int b){  
+	PCONSOLE_FONT_INFOEX lpConsoleCurrentFontEx = new CONSOLE_FONT_INFOEX();
+	lpConsoleCurrentFontEx->cbSize = sizeof(CONSOLE_FONT_INFOEX);
+	GetCurrentConsoleFontEx(out, 0, lpConsoleCurrentFontEx);
+	lpConsoleCurrentFontEx->dwFontSize.X = a;
+	lpConsoleCurrentFontEx->dwFontSize.Y = b;
+	SetCurrentConsoleFontEx(out, 0, lpConsoleCurrentFontEx);
 }
