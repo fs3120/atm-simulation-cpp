@@ -1,5 +1,9 @@
 #include <iostream>
 #include <windows.h>
+#include <string>
+#include <conio.h>
+#include <unistd.h>
+using namespace std;
 
 // =======================================================================================
 // Program Simulasi Mesin ATM v1.0
@@ -21,9 +25,12 @@ HWND wh = GetConsoleWindow();
 void fontsize(int,int);
 void showHeader();
 void masukkanKartu();
+void masukkanPin(string&);
 void mainMenu();
 
 int main(){
+	string pin = "";
+	
 	// Pengaturan CMD ============================================
 	fontsize(45, 45);												// Ubah ukuran font pada CMD
 	system("color 17");												// Set warna background CMD menjadi biru & warna teks menjadi putih
@@ -32,6 +39,7 @@ int main(){
 
     // Main menu =================================================
     masukkanKartu();
+    masukkanPin(pin);
 }
 
 void fontsize(int a, int b){  
@@ -48,15 +56,37 @@ void showHeader(){
 }
 
 void masukkanKartu(){
+	char ch;
 	showHeader();
-    std::cout << "\n\n\n";
-	std::cout << "\t Harap Masukkan Kartu ATM Anda\n\n";
-	std::cout << "     Tekan [Enter] untuk memasukkan kartu\n";
-	std::cin.get();
-	std::cout << "           Kartu berhasil dimasukkan\n";
+    cout << "\n\n\n";
+	cout << "\t Harap Masukkan Kartu ATM Anda\n\n";
+	cout << "     Tekan [Enter] untuk memasukkan kartu\n";
+	ch = _getch();
+	while(ch != 13){
+		ch = _getch();
+	}
+	cout << "\n\n\n\n\n           Kartu berhasil dimasukkan\n";
+	sleep(3);
+}
+
+void masukkanPin(string &pin){
+	char ch;
+	system("cls");
+	showHeader();
+    cout << "\n\n\n";
+	cout << "\t  Harap Masukkan PIN ATM Anda\n\n";
+	cout << "\t\t    ";
+	ch = _getch();
+	while(ch != 13){
+		pin.push_back(ch);
+		cout << "*";
+		ch = _getch();
+	}
 }
 
 void mainMenu(){
 	showHeader();
-	std::cout << "\n\n\n";
+	cout << "\n\n\n";
+	cout << "Main Menu:\n";
+	cout << "[1]";
 }
