@@ -37,15 +37,16 @@ int main(){
 	// ===========================================================
 	
 	// Pengaturan CMD ============================================
-	fontsize(45, 45);												// Ubah ukuran font pada CMD
+	system("title Simulasi Mesin ATM v1.0");						// Ubah title CMD
+	fontsize(35, 35);												// Ubah ukuran font pada CMD
 	system("color 17");												// Set warna background CMD menjadi biru & warna teks menjadi putih
-    MoveWindow(wh, 250, 0, 1024, 768, TRUE);						// Set resolusi CMD
+    MoveWindow(wh, 250, 35, 800, 630, TRUE);						// Set resolusi CMD
     // ===========================================================
 
     // Kartu dan PIN =============================================
     masukkanKartu();												// Tampilan masukkan kartu
     while(pin != pinT){												// Ketika pin tidak sama dengan pinT
-    	pin = "";													// maka akan terus meampilkan tampilan masukkan pin
+    	pin = "";													// maka akan terus menampilkan tampilan masukkan pin
     	masukkanPin(pin);
     	if(pin != pinT){
     		std::cout << "\n\n\n\t  Pin yang anda masukkan salah\n";
@@ -53,7 +54,8 @@ int main(){
 		}else{
 			system("cls");
 			showHeader();
-			std::cout << "\n\n\n\n\n\n\t\t  Harap Tunggu\n";
+			std::cout << "\n\n\n\n\n\n\t\t  "
+					  << "Harap Tunggu\n\n\n\n\n\n\n\n";
     		sleep(3);
 		}
 	}
@@ -63,19 +65,19 @@ int main(){
     mainMenu(pilihan);												// Tampilan main menu sekaligus menetapkan pilihan transaksi
     switch(pilihan){
     	case '1':{
-    		
+    		system("cls");
 			break;
 		}
 		case '2':{
-			
+			system("cls");
 			break;
 		}
 		case '3':{
-			
+			system("cls");
 			break;
 		}
 		case '0':{
-			
+			system("cls");
 			break;
 		}
 	}
@@ -88,6 +90,7 @@ void showHeader(){
 
 void masukkanKartu(){
 	char ch;
+	system("cls");
 	showHeader();
     cout << "\n\n\n";
 	cout << "\t Harap Masukkan Kartu ATM Anda\n\n";
@@ -128,14 +131,15 @@ void masukkanPin(string &pin){
 
 void mainMenu(char &pilihan){
 	char ch;
+	system("cls");
 	showHeader();
 	cout << "\n\n\n\n";
 	cout << "Pilih transaksi:\n";
 	cout << "[1]Cek Saldo\n"
 		 << "[2]Transfer\n"
 		 << "[3]Pembayaran\n"
-		 << "[0]Cancel\n";
-	cout << "\n\n\n\n\nInput: ";
+		 << "[0]Cancel\n"
+		 << "\n\n\n\n\nInput: ";
 	while(1){
 		ch = _getch();
 		if(ch == 13 && pilihan != NULL){							// Kondisi keluar loop
