@@ -30,17 +30,21 @@ void mainMenu(char&);
 
 int main(){
 	// Data nasabah ==============================================
-	char pilihan;													// Variabel sementara untuk pilihan pada main menu
+	char pilihan = 0;												// Variabel sementara untuk pilihan pada main menu
 	string pin	= "";												// Variabel sementara untuk pin
 	string pinT	= "123456";											// PIN untuk akses ATM
 	int saldo	= 10000000;											// Jumlah saldo
 	// ===========================================================
 	
 	// Pengaturan CMD ============================================
+	COORD NewSBSize;												// Variabel untuk menyimpan koordinat pada CMD
+	NewSBSize.X = 0, NewSBSize.Y = 0;
+    SetConsoleScreenBufferSize(out, NewSBSize);						// Set screen buffer lebih kecil dari pada window size 
+																	// untuk menghilangkan scroll bar
 	system("title Simulasi Mesin ATM v1.0");						// Ubah title CMD
 	fontsize(35, 35);												// Ubah ukuran font pada CMD
-	system("color 17");												// Set warna background CMD menjadi biru & warna teks menjadi putih
     MoveWindow(wh, 250, 35, 800, 630, TRUE);						// Set resolusi CMD
+    system("color 17");												// Set warna background CMD menjadi biru & warna teks menjadi putih
     // ===========================================================
 
     // Kartu dan PIN =============================================
@@ -142,15 +146,15 @@ void mainMenu(char &pilihan){
 		 << "\n\n\n\n\nInput: ";
 	while(1){
 		ch = _getch();
-		if(ch == 13 && pilihan != NULL){							// Kondisi keluar loop
+		if(ch == 13 && pilihan != 0){								// Kondisi keluar loop
 			break;
 		}
-		if(ch == 8 && pilihan != NULL){								// Fitur untuk menghapus pilihan
+		if(ch == 8 && pilihan != 0){								// Fitur untuk menghapus pilihan
 			cout << char(8) << " " << char(8);				
-			pilihan = NULL;
+			pilihan = 0;
 			continue;					
 		}
-		if(ch < 48 || ch > 51 || pilihan != NULL){					// Fitur supaya input pilihan hanya boleh angka tertentu
+		if(ch < 48 || ch > 51 || pilihan != 0){						// Fitur supaya input pilihan hanya boleh angka tertentu
 			continue;												// dan maksimalnya hanya 1 karakter
 		}
 		pilihan = ch;
