@@ -45,6 +45,9 @@ int main(){
 	fontsize(35, 35);												// Ubah ukuran font pada CMD
     MoveWindow(wh, 250, 35, 800, 630, TRUE);						// Set resolusi CMD
     system("color 17");												// Set warna background CMD menjadi biru & warna teks menjadi putih
+    SetWindowLong(wh, GWL_STYLE,									// Disable resize dan maximize pada window CMD 
+				  GetWindowLong(wh, GWL_STYLE) 
+				  & ~WS_MAXIMIZEBOX & ~WS_SIZEBOX);
     // ===========================================================
 
     // Kartu dan PIN =============================================
