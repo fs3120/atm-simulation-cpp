@@ -20,6 +20,7 @@ using namespace std;
 // =======================================================================================
 
 HANDLE out	= GetStdHandle(STD_OUTPUT_HANDLE);
+HANDLE in	= GetStdHandle(STD_INPUT_HANDLE);
 HWND wh 	= GetConsoleWindow();
 
 void fontsize(int,int);
@@ -37,14 +38,18 @@ int main(){
 	// ===========================================================
 	
 	// Pengaturan CMD ============================================
-	COORD NewSBSize;												// Variabel untuk menyimpan koordinat pada CMD
-	NewSBSize.X = 0, NewSBSize.Y = 0;
-    SetConsoleScreenBufferSize(out, NewSBSize);						// Set screen buffer lebih kecil dari pada window size 
-																	// untuk menghilangkan scroll bar
+	_COORD coord;													// Variabel untuk menyimpan window size
+	coord.X = 47; 
+	coord.Y = 16;
+	_SMALL_RECT Rect;												// Variabel untuk menyimpan screen buffer size
+    Rect.Top = Rect.Left = 0;
+    Rect.Right = 46;
+	Rect.Bottom = 15;
+	SetConsoleWindowInfo(out, TRUE, &Rect);							// Merubah ukuran window size
+	SetConsoleScreenBufferSize(out, coord);							// Merubah ukuran screen buffer size
 	system("title Simulasi Mesin ATM v1.0");						// Ubah title CMD
 	fontsize(35, 35);												// Ubah ukuran font pada CMD
-    MoveWindow(wh, 250, 35, 800, 630, TRUE);						// Set resolusi CMD
-    system("color 17");												// Set warna background CMD menjadi biru & warna teks menjadi putih
+    system("color 17");												// Merubah warna background CMD menjadi biru & warna teks menjadi putih
     SetWindowLong(wh, GWL_STYLE,									// Disable resize dan maximize pada window CMD 
 				  GetWindowLong(wh, GWL_STYLE) 
 				  & ~WS_MAXIMIZEBOX & ~WS_SIZEBOX);
