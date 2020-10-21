@@ -169,14 +169,17 @@ void keluarKartu(){
 	char ch;
 	system("cls");
     cout << "\n\n\n";
-	cout << "\t   Harap Ambil Kartu ATM Anda\n\n";
-	cout << "      Tekan [Enter] untuk mengambil kartu\n";
+	cout << "\tHARAP AMBIL KARTU ATM ANDA\n\n";
+	cout << "    TEKAN [ENTER] UNTUK MENGAMBIL KARTU"
+		 << "\n\n\n\n\n\n\n\n\n\n";
 	ch = _getch();
 	while(ch != 13){
 		ch = _getch();
 	}
+	Beep(600,200);
 	system("cls");
-	std::cout << "\n\n\n\n\n\n\n		  Terimakasih\n";
+	cout << "\n\n\n\n\n\n\n"
+		 << "\t\tTERIMAKASIH\n\n\n\n\n\n\n\n";
 	sleep(3);
 	system("cls");
 }
