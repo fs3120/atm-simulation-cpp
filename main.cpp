@@ -34,6 +34,7 @@ void fontsize(int,int);
 void penarikanJL(int&);
 void mainMenuL(char&);
 void informasiSaldo(int&);
+void transfer(long long, std::string, int&);
 
 int main(){
 	// Variabel ==================================================
@@ -41,8 +42,12 @@ int main(){
 	char pilihanTL = '1';											// Variabel sementara untuk pilihan pada main menu transaksi lainnya
 
 	// Data nasabah ==============================================
-	std::string pinT	= "123456";									// PIN untuk akses ATM
+	std::string pinT = "123456";									// PIN untuk akses ATM
 	int saldoT	= 100000000;										// Jumlah saldo
+
+	// Data nasabah tujuan =======================================
+	long long rek = 8691049693;										// No. Rekening Tujuan
+	std::string nama = "Muhammad Rahmadhan Fauzan";					// Nama Pemilik Rekening Tujuan
 	
 	// Pengaturan CMD ============================================
 	configureCMD();													// Mengatur tampilan CMD
@@ -73,17 +78,17 @@ int main(){
 			if(pilihanTL == '1'){
 				informasiSaldo(saldoT);
 			}else if(pilihanTL == '2'){
-
+				// Informasi Pinjaman
 			}else if(pilihanTL == '3'){
-				
+				// Cetak Resi Mandiri SMS
 			}else if(pilihanTL == '4'){
-				
+				// Ubah PIN
 			}else if(pilihanTL == '5'){
-				
+				transfer(rek, nama, saldoT);
 			}else if(pilihanTL == '6'){
-				
+				// Pendaftaran E-Banking
 			}else if(pilihanTL == '7'){
-				
+				// Cetak Mutasi
 			}else if(pilihanTL == '8'){
 				keluarKartu();
 				pilihan = 32;										// Ini bukan supaya ke else if dibawahnya
@@ -179,8 +184,8 @@ void mainMenu(char &pilihan){
 void keluarKartu(){
 	char ch;
 	system("cls");
-    std::cout << "\n\n\n"
-	 		  << "\t HARAP AMBIL KARTU ATM ANDA\n\n\n\n"
+    std::cout << "\n\n\n\n"
+	 		  << "\t HARAP AMBIL KARTU ATM ANDA\n\n\n"
 	 		  << "    TEKAN [ENTER] UNTUK MENGAMBIL KARTU"
 			  << "\n\n\n\n\n\n\n\n";
 	ch = _getch();													// Jika bukan enter yang ditekan maka akan terus meminta input
@@ -246,7 +251,7 @@ void penarikanJL(int &saldoT){
 			break;
 		}else if(ch == 13 && saldoS.length() >= 5){						// Ketika enter ditekan dan permintaan penarikan sudah 5 digit
 			Beep(600,200);												// Maka akan menjalankan berikut
-			saldoI = stoi(saldoS);
+			saldoI = std::stoi(saldoS);
 			if(saldoI > 2500000){										// Pengecekan apakah jumlah penarikan melebihi batas
 				std::cout << "\n\n"
 						  << "      JUMLAH PENARIKAN MELEBIHI BATAS\n\n\n";
@@ -392,4 +397,116 @@ void informasiSaldo(int &saldo){
 		ch = _getch();
 	}
 	Beep(600,200);
+}
+
+void transfer(long long rek, std::string nama, int &saldo){
+	char ch;
+	std::string rekTempS, saldoTS;
+	long long rekTempLL = 0, saldoTLL = 0;
+	system("cls");
+	std::cout << "\n"
+		
+			  << "        WASPADA TERHADAP PENIPUAN!!\n"
+			  << "               MASUKKAN NOMOR\n"
+			  << "          REKENING TUJUAN TRANSFER\n\n"
+			  << "        TEKAN <SPASI> KE MENU UTAMA\n\n"
+			  << "                ";
+	while(1){
+		ch = _getch();
+		if(ch == 32){
+			Beep(600,200);
+			break;
+		}else if(ch == 13 && rekTempS.length() == 10){
+			Beep(600,200);
+			rekTempLL = std::stoll(rekTempS);
+			if(rekTempLL != rek){
+				std::cout << "\n\n\n"
+						  << "          REKENING TIDAK TERDAFTAR\n\n\n\n\n";
+				sleep(3);
+				break;
+			}else{
+				system("cls");
+				std::cout << "\n"
+						  << "              MASUKKAN JUMLAH\n"
+						  << "             (MINIMUM RP.10000)\n\n"
+						  << "       TEKAN <ENTER> UNTUK KONFIRMASI\n"
+						  << "          TEKAN <SPASI> UNTUK BATAL\n\n"
+						  << "                RP.";
+				while(1){
+					ch = _getch();
+					if(ch == 32){
+						Beep(600,200);
+						break;
+					}else if(ch == 13 && saldoTS.length() >= 5){
+						Beep(600,200);
+						saldoTLL = stoi(saldoTS);
+						if(saldoTLL < 10000){
+							std::cout << "\n\n\n"
+									  << "    JUMLAH TRANSFER KURANG DARI RP.10000\n\n\n\n\n";
+							sleep(3);
+							break;
+						}else if(saldoTLL > saldo){
+							std::cout << "\n\n\n"
+									  << "           SALDO ANDA TIDAK CUKUP\n\n\n\n\n";
+							sleep(3);
+							break;
+						}else{
+							system("cls");
+							//	      << "                                           "
+							std::cout << "\n"
+									  << "            KONFIRMASI TRANSFER\n\n"
+									  << "  REK.TUJUAN : " << rek << "\n"
+									  << "  NAMA       : " << nama << "\n"
+									  << "  JUMLAH     : RP." << saldoTLL << "\n"
+									  << "  DARI REK.  : 1231231231\n\n\n"
+									  << "       TEKAN <ENTER> UNTUK KONFIRMASI\n"
+									  << "         TEKAN <SPASI> KE MENU UTAMA\n\n\n\n\n";
+							while(1){
+								ch = _getch();
+								if(ch == 32){
+									Beep(600,200);
+									break;
+								}else if(ch == 13){
+									Beep(600,200);
+									system("cls");
+									//	      << "                                           "
+									std::cout << "\n\n\n"
+											  << "          TRANSFER SEDANG DIPROSES\n\n\n\n";
+									sleep(2);
+									saldo -= saldoTLL;
+									std::cout << "              TRANSFER SUKSES\n\n\n\n\n\n\n\n";
+									sleep(2);
+									break;
+								}else{
+									continue;
+								}
+							}
+							break;
+						}
+					}else if(ch == 8 && saldoTS.length() >= 1){
+						std::cout << char(8) << " " << char(8);
+						saldoTS = saldoTS.erase(saldoTS.length()-1);
+						continue;
+					}else if(ch < 48 || ch > 57){
+						continue;
+					}else{
+						Beep(600,200);
+						saldoTS.push_back(ch);
+						std::cout << ch;
+					}
+				}
+				break;
+			}
+		}else if(ch == 8 && rekTempS.length() >= 1){
+			std::cout << char(8) << " " << char(8);					// Menghapus 1 digit input pada layar
+			rekTempS = rekTempS.erase(rekTempS.length()-1);
+			continue;
+		}else if(ch < 48 || ch > 57 || rekTempS.length() >= 10){
+			continue;
+		}else{
+			Beep(600,200);
+			rekTempS.push_back(ch);
+			std::cout << ch;
+		}
+	}
 }
