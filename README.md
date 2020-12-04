@@ -1,4 +1,4 @@
-# modsis_atm
+# Simulasi Mesin ATM menggunakan C++
 Tugas projek pemodelan dan simulasi ATM
 
 Program Simulasi Mesin ATM v1.0
