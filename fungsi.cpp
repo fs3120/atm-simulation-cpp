@@ -107,6 +107,15 @@ void keluarKartu(){
 	system("cls");
 }
 
+void fontsize(int a, int b){  
+	PCONSOLE_FONT_INFOEX lpConsoleCurrentFontEx = new CONSOLE_FONT_INFOEX();
+	lpConsoleCurrentFontEx->cbSize = sizeof(CONSOLE_FONT_INFOEX);
+	GetCurrentConsoleFontEx(out, 0, lpConsoleCurrentFontEx);
+	lpConsoleCurrentFontEx->dwFontSize.X = a;
+	lpConsoleCurrentFontEx->dwFontSize.Y = b;
+	SetCurrentConsoleFontEx(out, 0, lpConsoleCurrentFontEx);
+}
+
 void configureCMD(){
 	_COORD coord;													// Variabel untuk menyimpan window size
 	coord.X = 43; 
@@ -123,15 +132,6 @@ void configureCMD(){
     SetWindowLong(wh, GWL_STYLE,									// Disable resize dan maximize pada window CMD 
 				  GetWindowLong(wh, GWL_STYLE) 
 				  & ~WS_MAXIMIZEBOX & ~WS_SIZEBOX);
-}
-
-void fontsize(int a, int b){  
-	PCONSOLE_FONT_INFOEX lpConsoleCurrentFontEx = new CONSOLE_FONT_INFOEX();
-	lpConsoleCurrentFontEx->cbSize = sizeof(CONSOLE_FONT_INFOEX);
-	GetCurrentConsoleFontEx(out, 0, lpConsoleCurrentFontEx);
-	lpConsoleCurrentFontEx->dwFontSize.X = a;
-	lpConsoleCurrentFontEx->dwFontSize.Y = b;
-	SetCurrentConsoleFontEx(out, 0, lpConsoleCurrentFontEx);
 }
 
 // Fungsi Transaksi ==============================================
@@ -491,4 +491,10 @@ void penarikanFixed(int &saldo, int penarikan){
 			break;
 		}
 	}
+}
+
+void bayarBeli(){
+	system("cls");
+	//		  << "                                           "
+	std::cout << "";
 }
