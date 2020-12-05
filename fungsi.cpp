@@ -38,13 +38,11 @@ void masukkanPin(std::string pinT){
 			if(ch == 13 && pin.length() == 6){						// Kondisi untuk keluar loop
 				Beep(600,200);
 				break;													
-			}
-			else if(ch == 8 && pin.length() >= 1){					// Menghapus karakter
+			}else if(ch == 8 && pin.length() >= 1){					// Menghapus karakter
 				std::cout << char(8) << " " << char(8);						
 				pin = pin.erase(pin.length()-1);
 				continue;											
-			}
-			else if(ch < 48 || ch > 57 || pin.length() >= 6){		// Hanya angka yang dapat diinput dan 
+			}else if(ch < 48 || ch > 57 || pin.length() == 6){		// Hanya angka yang dapat diinput dan 
 				continue;											// ketika sudah 6 karakter tidak bisa input lagi
 			}
 			pin.push_back(ch);
@@ -306,7 +304,7 @@ void informasiSaldo(int &saldo){
 	Beep(600,200);
 }
 
-void transfer(long long rek, std::string nama, int &saldo){
+void transfer(long long rekT, long long rekN, std::string nama, int &saldo){
 	char ch;
 	std::string rekTempS, saldoTS;
 	long long rekTempLL = 0, saldoTLL = 0;
@@ -325,7 +323,7 @@ void transfer(long long rek, std::string nama, int &saldo){
 		}else if(ch == 13 && rekTempS.length() == 10){										 	// Jika enter ditekan dan panjang input rekening tujuan
 			Beep(600,200);																		// adalah 10 digit maka ke menu berikutnya
 			rekTempLL = std::stoll(rekTempS);
-			if(rekTempLL != rek){																// Apabila rekening tujuan tidak terdaftar
+			if(rekTempLL != rekT){																// Apabila rekening tujuan tidak terdaftar
 				std::cout << "\n\n\n"
 						  << "          REKENING TIDAK TERDAFTAR\n\n\n\n\n";
 				sleep(3);
@@ -360,10 +358,10 @@ void transfer(long long rek, std::string nama, int &saldo){
 							system("cls");
 							std::cout << "\n"
 									  << "            KONFIRMASI TRANSFER\n\n"
-									  << "  REK.TUJUAN : " << rek << "\n"
+									  << "  REK.TUJUAN : " << rekT << "\n"
 									  << "  NAMA       : " << nama << "\n"
 									  << "  JUMLAH     : RP." << saldoTLL << "\n"
-									  << "  DARI REK.  : 1231231231\n\n\n"
+									  << "  DARI REK.  : " << rekN << "\n\n\n"
 									  << "       TEKAN <ENTER> UNTUK KONFIRMASI\n"
 									  << "         TEKAN <SPASI> KE MENU UTAMA\n\n\n\n\n";
 							while(1){															// Looping menu konfirmasi
@@ -405,7 +403,7 @@ void transfer(long long rek, std::string nama, int &saldo){
 			std::cout << char(8) << " " << char(8);												// Jika backspace ditekan dan panjang rekTempS >= 1
 			rekTempS = rekTempS.erase(rekTempS.length()-1);										// Menghapus 1 digit input pada layar dan rekTempS
 			continue;
-		}else if(ch < 48 || ch > 57 || rekTempS.length() >= 10){								// Jika input bukan angka atau panjang rekTempS >= 10
+		}else if(ch < 48 || ch > 57 || rekTempS.length() == 10){								// Jika input bukan angka atau panjang rekTempS >= 10
 			continue;																			// Maka tidak terjadi apa2
 		}else{																					// Jika input berupa angka
 			Beep(600,200);
@@ -417,7 +415,7 @@ void transfer(long long rek, std::string nama, int &saldo){
 
 void penarikanFixed(int &saldo, int penarikan){
 	char ch;
-	int pilihan = 0, jmlLembar = 0;
+	int pilihan = 0;
 	system("cls");
 	//		  << "                                           "
 	std::cout << "\n\n"
@@ -493,8 +491,126 @@ void penarikanFixed(int &saldo, int penarikan){
 	}
 }
 
-void bayarBeli(){
+void bayarBeli(char &pilihan){
+	char ch;
 	system("cls");
-	//		  << "                                           "
-	std::cout << "";
+	std::cout << "\n" 
+			  << "                 BAYAR/BELI\n"
+			  << "        ===========================\n"
+			  << "        TEKAN <SPASI> KE MENU UTAMA\n\n\n"
+			  << " [1]<--VOUCHER HP        LISTRIK/GAS-->[5] \n\n"
+			  << " [2]<--TELEPON/HP        KARTU KREDIT->[6] \n\n"
+			  << " [3]<---TV KABEL/        PAM---------->[7] \n"
+			  << "         INTERNET                          \n\n"
+			  << " [4]<--PENDIDIKAN        LAINNYA------>[8] \n\n";
+	while(1){
+		ch = _getch();
+		if(ch == 32){
+			Beep(600,200);
+			break;
+		}else if(ch < 49 || ch > 56){									// Jika menginput selain angka maka loop kembali (tidak terjadi apa2)
+			continue;
+		}else{															// Jika menginput angka maka keluar (pass by reference ke &pilihan)
+			pilihan = ch;
+			Beep(600,200);
+			break;
+		}
+	}
+}
+
+void voucherHP(int &saldo, long long rekN){
+	char ch;
+	int pembelian = 0;
+	std::string nohpS;
+	system("cls");
+	std::cout << "\n\n"
+			  << "           PILIH NILAI VOUCHER HP\n"
+			  << "        TEKAN <SPASI> KE MENU UTAMA\n\n\n"
+			  << "   [1]25.000                   50.000[5]   \n\n"
+			  << "   [2]75.000                  100.000[6]   \n\n"
+			  << "   [3]150.000                 200.000[7]   \n\n"
+			  << "   [4]300.000                 500.000[8]   \n\n\n";
+	while(1){
+		ch = _getch();
+		if(ch == 32){
+			Beep(600,200);
+			break;
+		}else if(ch < 49 || ch > 56){									// Jika menginput selain angka maka loop kembali (tidak terjadi apa2)
+			continue;
+		}else{															// Jika menginput angka maka keluar (pass by reference ke &pilihan)
+			Beep(600,200);
+			if(ch == '1'){
+				pembelian = 25000;
+			}else if(ch == '2'){
+				pembelian = 75000;
+			}else if(ch == '3'){
+				pembelian = 150000;
+			}else if(ch == '4'){
+				pembelian = 300000;
+			}else if(ch == '5'){
+				pembelian = 50000;
+			}else if(ch == '6'){
+				pembelian = 100000;
+			}else if(ch == '7'){
+				pembelian = 200000;
+			}else if(ch == '8'){
+				pembelian = 500000;
+			}
+			system("cls");
+			std::cout << "\n\n"
+					  << "       MASUKKAN NOMOR HANPHONE ANDA\n\n"
+					  << "       TEKAN <ENTER> UNTUK KONFIRMASI\n"
+					  << "        TEKAN <SPASI> KE MENU UTAMA\n\n"
+					  
+					  << "       NO HP: ";
+			while(1){
+				ch = _getch();
+				if(ch == 32){
+					Beep(600,200);
+					break;
+				}else if(ch == 13 && nohpS.length() >= 10){
+					Beep(600,200);
+					system("cls");
+					std::cout << "\n"
+							  << "            KONFIRMASI PEMBELIAN\n"
+							  << "       TEKAN <ENTER> UNTUK KONFIRMASI\n"
+							  << "        TEKAN <SPASI> KE MENU UTAMA\n\n\n"
+							  << "   NOMOR HP : " << nohpS << "\n"
+							  << "   NILAI VOUCHER : " << pembelian << "\n"
+							  << "   NO. REKENING : " << rekN << "\n\n\n\n\n\n\n";
+					while(1){
+						ch = _getch();
+						if(ch == 32){
+							Beep(600,200);
+							break;
+						}else if(ch == 13){
+							Beep(600,200);
+							saldo -= pembelian;
+							system("cls");
+							std::cout << "\n\n\n\n\n\n\n"
+									  << "           HARAP TUNGGU SEBENTAR\n\n";
+							sleep(2);
+							//		  << "                                           "
+							std::cout << "             TRANSAKSI BERHASIL\n\n\n\n\n\n";
+							sleep(2);
+							break;
+						}
+					}
+					break;
+				}else if(ch == 8 && nohpS.length() >= 1){
+					std::cout << char(8) << " " << char(8);												// Jika backspace ditekan dan panjang rekTempS >= 1
+					nohpS = nohpS.erase(nohpS.length()-1);										// Menghapus 1 digit input pada layar dan rekTempS
+					continue;
+				}else if(ch < 48 || ch > 57 || nohpS.length() == 13){
+					continue;
+				}else{
+					Beep(600,200);
+					nohpS.push_back(ch);
+					std::cout << ch;
+					continue;
+				}
+			}
+			break;
+		}
+	}
 }
