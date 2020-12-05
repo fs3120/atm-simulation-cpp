@@ -19,13 +19,15 @@ int main(){
 	// Variabel ==================================================
 	char pilihan = '1';												// Variabel sementara untuk pilihan pada main menu
 	char pilihanTL = '1';											// Variabel sementara untuk pilihan pada main menu transaksi lainnya
+	char pilihanBB = '1';											// Variabel sementara untuk pilihan bayar / beli
 
 	// Data nasabah ==============================================
 	std::string pinT = "123456";									// PIN untuk akses ATM
 	int saldoT	= 100000000;										// Jumlah saldo
+	long long rekN = 1231231231;									// No. Rekening Nasabah (10 Digit)
 
 	// Data nasabah tujuan =======================================
-	long long rek = 8691049693;										// No. Rekening Tujuan
+	long long rekT = 8691049693;									// No. Rekening Tujuan (10 Digit)
 	std::string nama = "Muhammad Rahmadhan Fauzan";					// Nama Pemilik Rekening Tujuan
 	
 	// Pengaturan CMD ============================================
@@ -43,7 +45,24 @@ int main(){
 		}else if(pilihan == '2'){
 			penarikanFixed(saldoT, 300000);
 		}else if(pilihan == '3'){
-			// Bayar / Beli
+			bayarBeli(pilihanBB);
+			if(pilihanBB == '1'){
+				voucherHP(saldoT, rekN);
+			}else if(pilihanBB == '2'){
+				// Telepon / HP
+			}else if(pilihanBB == '3'){
+				// TV Kabel / Internet
+			}else if(pilihanBB == '4'){
+				// Pendidikan
+			}else if(pilihanBB == '5'){
+				// Listrik / Gas
+			}else if(pilihanBB == '6'){
+				// Kartu Kredit
+			}else if(pilihanBB == '7'){
+				// PAM
+			}else if(pilihanBB == '8'){
+				// Lainnya
+			}
 		}else if(pilihan == '4'){
 			// Mandiri Prabayar
 		}else if(pilihan == '5'){
@@ -63,7 +82,7 @@ int main(){
 			}else if(pilihanTL == '4'){
 				// Ubah PIN
 			}else if(pilihanTL == '5'){
-				transfer(rek, nama, saldoT);
+				transfer(rekT, rekN, nama, saldoT);
 			}else if(pilihanTL == '6'){
 				// Pendaftaran E-Banking
 			}else if(pilihanTL == '7'){
