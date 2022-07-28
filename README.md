@@ -1,22 +1,19 @@
-# Simulasi Mesin ATM menggunakan C++
-Tugas projek pemodelan dan simulasi ATM
+# ATM machine simulation using C++
 
-Program Simulasi Mesin ATM v1.0
-Program ini dibuat untuk memenuhi tugas mata kuliah Teknik Pemodelan dan Simulasi 5E
-Yang dibina oleh dosen kami yaitu Desi Nurmaningsih S.Kom, M.Kom
+This program has been made in order to fulfill our college's assignment on Model and simulation 5E
+teached by our lecturer Ms. Desi Nurmaningsih S.Kom, M.Kom
  
-Program ini dibuat oleh:
+Made by:
 - Muhammad Fikri Syahid	(11180910000041)
 - Muhammad Akmal Fauzan	(11180910000044)
 - Rahmadhan Adinugroho		(11180910000046)
 
-UIN Syarif Hidayatullah Jakarta Fakultas Sains dan Teknologi Jurusan Teknik Informatika 
-Tahun ajaran 2020/2021
+UIN Syarif Hidayatullah Jakarta Faculty of Science and Technology 2020/2021
 
-Langkah untuk menjalankan program :
-1. Buka Dev-C++ (pastikan sudah terinstall / bisa menggunakan IDE lain)
-2. Klik tab Tools > Compiler Options
-3. Pada kolom "Add the following commands when calling the compiler" tambahkan command berikut :
-   -std=c++11
-4. Klik OK
-5. Jalankan main.cpp (pastikan fungsi.cpp berada dalam 1 folder dengan main.cpp)
+How to run this program :
+1. Open Dev-C++
+2. Go to Tools > Compiler Options
+3. Add this command on when calling the compiler :
+   ```-std=c++11```
+4. Click OK
+5. Run main.cpp (make sure fungsi.cpp is on the same folder as main.cpp)
